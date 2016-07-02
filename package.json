@@ -1,0 +1,28 @@
+{
+  "name": "buho",
+  "version": "6.2.2",
+  "description": "The one that wakes up in the night and go for a walk",
+  "bin": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/piranna/buho.git"
+  },
+  "keywords": [
+    "version",
+    "watcher",
+    "updater"
+  ],
+  "author": "Jesús Leganés Combarro 'piranna' <piranna@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/piranna/buho/issues"
+  },
+  "homepage": "https://github.com/piranna/buho#readme",
+  "dependencies": {
+    "concat-stream": "^1.5.1",
+    "github-basic": "^6.0.0"
+  }
+}
