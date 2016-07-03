@@ -1,6 +1,6 @@
 {
   "name": "buho",
-  "version": "0.0.3",
+  "version": "6.2.2",
   "description": "The one that wakes up in the night and go for a walk",
   "bin": "server.js",
   "scripts": {
