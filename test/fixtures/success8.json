@@ -1,0 +1,27 @@
+{
+  "sha":"b0e2ffb516911849a632c911a80251aa1847bc5e",
+  "url":"https://api.github.com/repos/piranna/buho/git/commits/b0e2ffb516911849a632c911a80251aa1847bc5e",
+  "html_url":"https://github.com/piranna/buho/commit/b0e2ffb516911849a632c911a80251aa1847bc5e",
+  "author":{
+    "name":"NodeOS-bot",
+    "email":"NodeOS-bot@users.noreply.github.com",
+    "date":"2016-07-03T14:21:07Z"
+  },
+  "committer":{
+    "name":"NodeOS-bot",
+    "email":"NodeOS-bot@users.noreply.github.com",
+    "date":"2016-07-03T14:21:07Z"
+  },
+  "tree":{
+    "sha":"f9d2be9aad61d79783336791abd1ed0e702f8c4a",
+    "url":"https://api.github.com/repos/piranna/buho/git/trees/f9d2be9aad61d79783336791abd1ed0e702f8c4a"
+  },
+  "message":"Update to 6.2.2",
+  "parents":[
+    {
+      "sha":"89171258d1edd70f5c72c242c8e2262a97396e7e",
+      "url":"https://api.github.com/repos/piranna/buho/git/commits/89171258d1edd70f5c72c242c8e2262a97396e7e",
+      "html_url":"https://github.com/piranna/buho/commit/89171258d1edd70f5c72c242c8e2262a97396e7e"
+    }
+  ]
+}
