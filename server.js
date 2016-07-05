@@ -29,4 +29,7 @@ const auth =
   password: password
 }
 
-buho(PKG, userRepo.user, userRepo.repo, auth)
+buho(PKG, userRepo.user, userRepo.repo, auth, function(error)
+{
+  if(error) console.error(error)
+})
