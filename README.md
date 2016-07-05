@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/piranna/buho.svg?branch=master)](https://travis-ci.org/piranna/buho)
+
 # buho
 The one that wakes up in the night and go for a walk
 
