@@ -2,8 +2,10 @@
   "name": "buho",
   "version": "0.0.0",
   "description": "The one that wakes up in the night and go for a walk",
+  "main": "lib",
   "bin": "server.js",
   "scripts": {
+    "coveralls": "scripts/coveralls",
     "test": "mocha"
   },
   "repository": {
@@ -30,7 +32,11 @@
     "minimist": "^1.2.0"
   },
   "devDependencies": {
+    "coveralls": "^2.11.9",
+    "fs-extra": "^0.30.0",
+    "jscoverage": "^0.6.0",
     "mocha": "^2.5.3",
+    "mocha-lcov-reporter": "^1.2.0",
     "nock": "^8.0.0"
   }
 }

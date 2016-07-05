@@ -1,0 +1,67 @@
+#!/usr/bin/env node
+
+var child_process = require('child_process')
+var fs            = require('fs-extra')
+
+var jscoverage = require('jscoverage')
+
+
+const pkg = require('../package.json')
+
+const LCOV_FILE='reports/'+pkg.name+'.lcov'
+
+
+function onexit(cmd, code, signal)
+{
+  if(code)   console.error(cmd,'exited with code:',code)
+  if(signal) console.error(cmd,'exited with signal:',signal)
+}
+
+function spawn()
+{
+  var cmd = arguments[0]
+
+  var cp = child_process.spawn.apply(child_process, arguments)
+  .on('error', console.error.bind(console, cmd,'has errored:'))
+  .on('exit', onexit.bind(null, cmd))
+
+  cp.stderr.pipe(process.stderr)
+
+  return cp
+}
+
+
+jscoverage.processDir('lib', 'lib_cov', function()
+{
+  fs.move('lib', 'lib_orig', {clobber: true}, function(error)
+  {
+    if(error) console.trace(error)
+
+    fs.move('lib-cov', 'lib', function(error)
+    {
+      if(error) console.trace(error)
+
+      // Exec test and fetch coverage data
+      const script = (process.argv.length > 2) ? process.argv[2] : 'test'
+      child_process.execFile(pkg.scripts[script], function(error)
+      {
+        if(error) return console.trace(error)
+
+        // Create and upload new coverage data
+        fs.createReadStream(LCOV_FILE).pipe(spawn('coveralls').stdin)
+      })
+      .on('exit', function onexit(code, signal)
+      {
+        if(code)   console.error('test exited with code:',code)
+        if(signal) console.error('test exited with signal:',signal)
+
+        fs.move('lib_orig', 'lib', {clobber: true}, function(error)
+        {
+          if(error) console.trace(error)
+
+          if(code) process.exit(code)
+        })
+      })
+    })
+  })
+})
