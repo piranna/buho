@@ -17,15 +17,15 @@ const username = args.username
 const password = args.password
 
 if(token)
-  const auth = token
+  var auth = token
 else if(username && password)
-  const auth =
+  var auth =
   {
     username: username,
     password: password
   }
 else
-  throw "Required username and password arguments"
+  throw "Required token or username and password arguments"
 
 buho(require(resolve('package.json')), auth, function(error)
 {
