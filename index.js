@@ -1,11 +1,17 @@
 const get = require('http').get
 
-const concat      = require('concat-stream')
-const githubBasic = require('github-basic')
+const concat            = require('concat-stream')
+const githubBasic       = require('github-basic')
+const githubFromPackage = require('github-from-package')
+const githubUrlToObject = require('github-url-to-object')
 
 
-function buho(PKG, user, repo, auth, callback)
+function buho(PKG, auth, callback)
 {
+  const userRepo = githubUrlToObject(githubFromPackage(PKG))
+  const user = userRepo.user
+  const repo = userRepo.repo
+
   function processData(data)
   {
     const latest = JSON.parse(data)[0].version.slice(1)

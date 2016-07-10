@@ -2,34 +2,32 @@
 
 const resolve = require('path').resolve
 
-const githubFromPackage = require('github-from-package')
-const githubUrlToObject = require('github-url-to-object')
-const minimist          = require('minimist')
+const minimist = require('minimist')
 
 const buho = require('.')
 
 
-const PKG = require(resolve('package.json'))
-
-const userRepo = githubUrlToObject(githubFromPackage(PKG))
-
 const args = minimist(process.argv.slice(2),
 {
-  string: ['username', 'password']
+  string: ['token', 'username', 'password']
 })
 
+const token    = args.token || process.env['GITHUB_TOKEN']
 const username = args.username
 const password = args.password
 
-if(!username || !password) throw "Required username and password arguments"
+if(token)
+  const auth = token
+else if(username && password)
+  const auth =
+  {
+    username: username,
+    password: password
+  }
+else
+  throw "Required username and password arguments"
 
-const auth =
-{
-  username: username,
-  password: password
-}
-
-buho(PKG, userRepo.user, userRepo.repo, auth, function(error)
+buho(require(resolve('package.json')), auth, function(error)
 {
   if(error) console.error(error)
 })

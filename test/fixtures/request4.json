@@ -1,4 +1,4 @@
 {
-  "content":"{\n  \"version\": \"6.2.2\"\n}",
+  "content":"{\n  \"version\": \"6.2.2\",\n  \"repository\": {\n    \"url\": \"https://github.com/piranna/buho.git\"\n  }\n}",
   "encoding":"utf-8"
 }

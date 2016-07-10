@@ -235,15 +235,16 @@ it('do a pull-request with a version update', function(done)
 
   const PKG =
   {
-    version: '0.0.0'
+    version: '0.0.0',
+    repository: {
+      url: "https://github.com/piranna/buho.git"
+    }
   }
-  const user = 'piranna'
-  const repo = 'buho'
   const auth =
   {
     username: 'username',
     password: 'password'
   }
 
-  buho(PKG, user, repo, auth, done)
+  buho(PKG, auth, done)
 })
