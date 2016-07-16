@@ -1,0 +1,42 @@
+#!/usr/bin/env node
+
+/**
+ * Check for a version update and if so, creates a pull-request for it
+ */
+
+const resolve = require('path').resolve
+
+const minimist = require('minimist')
+
+const Buho = require('..')
+
+
+const args = minimist(process.argv.slice(2),
+{
+  string: ['token', 'username', 'password']
+})
+
+var auth = args.token || process.env['GITHUB_TOKEN']
+
+const username = args.username
+const password = args.password
+
+if(username && password)
+  auth =
+  {
+    username: username,
+    password: password
+  }
+
+if(!auth) throw "Required token or username and password arguments"
+
+
+Buho(require(resolve('package.json')), auth).check(function(error, version)
+{
+  if(error) throw error
+
+  if(version) this.update(version, function(error)
+  {
+    if(error) throw error
+  })
+})

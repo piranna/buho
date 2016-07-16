@@ -6,29 +6,53 @@ const githubFromPackage = require('github-from-package')
 const githubUrlToObject = require('github-url-to-object')
 
 
-function buho(PKG, auth, callback)
+function Buho(PKG, auth)
 {
+  if(!(this instanceof Buho)) return new Buho(PKG, auth)
+
+
   const userRepo = githubUrlToObject(githubFromPackage(PKG))
   const user = userRepo.user
   const repo = userRepo.repo
 
-  function processData(data)
+  const options =
   {
-    const latest = JSON.parse(data)[0].version.slice(1)
+    version: 3,
+    auth: auth
+  }
 
-    if(PKG.version >= latest) return callback()
+  const client = githubBasic(options)
 
-    PKG.version = latest
 
-    const options =
+  /**
+   * Check latest version of Node.js
+   */
+  this.check = function(callback)
+  {
+    callback = callback.bind(this)
+
+    get('http://nodejs.org/dist/index.json', function(res)
     {
-      version: 3,
-      auth: auth
-    }
+      res.pipe(concat(function(data)
+      {
+        const latest = JSON.parse(data)[0].version.slice(1)
 
-    const client = githubBasic(options)
+        if(PKG.version >= latest) return callback()
 
-    const message = 'Update to '+latest
+        callback(null, latest)
+      }))
+    })
+    .on('error', callback)
+  }
+
+  /**
+   * Update version of `package.json` and create a pull-request
+   */
+  this.update = function(version, callback)
+  {
+    PKG.version = version
+
+    const message = 'Update to '+version
     const branch  = message.split(' ').join('_')
 
     client.branch(user, repo, 'master', branch)
@@ -57,12 +81,8 @@ function buho(PKG, auth, callback)
     .then(callback.bind(null, null), callback)
   }
 
-  get('http://nodejs.org/dist/index.json', function(res)
   {
-    res.pipe(concat(processData))
-  })
-  .on('error', callback)
 }
 
 
-module.exports = buho
+module.exports = Buho

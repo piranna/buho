@@ -2,7 +2,9 @@
   "name": "buho",
   "version": "0.0.3",
   "description": "The one that wakes up in the night and go for a walk",
-  "bin": "server.js",
+  "bin": {
+    "buho-checkUpdate": "bin/checkUpdate",
+  },
   "scripts": {
     "test": "mocha"
   },
@@ -26,7 +28,7 @@
     "concat-stream": "^1.5.1",
     "github-basic": "^6.0.0",
     "github-from-package": "0.0.0",
-    "github-url-to-object": "^2.2.1",
+    "github-url-to-object": "^2.2.3",
     "minimist": "^1.2.0"
   },
   "devDependencies": {
