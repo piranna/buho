@@ -28,7 +28,7 @@ describe('check', function()
 {
   it('version update', function(done)
   {
-    nodejs.get('/dist/index.json').reply(200, require('./fixtures/success1.json'))
+    nodejs.get('/dist/index.json').reply(200, require('./fixtures/check/success1.json'))
 
     buho.check(done)
   })
@@ -41,7 +41,7 @@ describe('update', function()
     const version = '6.2.2'
 
     github.get('/repos/piranna/buho/git/refs/heads/master')
-      .reply(200, require('./fixtures/success2.json'),
+      .reply(200, require('./fixtures/update/success2.json'),
       {
         server: 'GitHub.com',
         date: 'Sun, 03 Jul 2016 14:21:04 GMT',
@@ -69,8 +69,8 @@ describe('update', function()
         'content-encoding': 'gzip',
         'x-github-request-id': '5AADFFBA:3981:47A8C5D:57791F50'
       })
-      .post('/repos/piranna/buho/git/refs', require('./fixtures/request3.json'))
-      .replyWithFile(201, __dirname+'/fixtures/success3.json',
+      .post('/repos/piranna/buho/git/refs', require('./fixtures/update/request3.json'))
+      .replyWithFile(201, __dirname+'/fixtures/update/success3.json',
       {
         server: 'GitHub.com',
         date: 'Sun, 03 Jul 2016 14:21:04 GMT',
@@ -96,8 +96,8 @@ describe('update', function()
         'x-served-by': 'ef96c2e493b28ffea49b891b085ed2dd',
         'x-github-request-id': '5AADFFBA:3989:86D35D1:57791F50'
       })
-      .post('/repos/piranna/buho/git/blobs', require('./fixtures/request4.json'))
-      .replyWithFile(201, __dirname+'/fixtures/success4.json',
+      .post('/repos/piranna/buho/git/blobs', require('./fixtures/update/request4.json'))
+      .replyWithFile(201, __dirname+'/fixtures/update/success4.json',
       {
         server: 'GitHub.com',
         date: 'Sun, 03 Jul 2016 14:21:05 GMT',
@@ -124,7 +124,7 @@ describe('update', function()
         'x-github-request-id': '5AADFFBA:3986:72E3177:57791F51'
       })
       .get('/repos/piranna/buho/git/refs/heads/Update_to_'+version)
-      .reply(200, require('./fixtures/success5.json'),
+      .reply(200, require('./fixtures/update/success5.json'),
       {
         server: 'GitHub.com',
         date: 'Sun, 03 Jul 2016 14:21:05 GMT',
@@ -153,7 +153,7 @@ describe('update', function()
         'x-github-request-id': '5AADFFBA:3989:86D3634:57791F51'
       })
       .get('/repos/piranna/buho/git/commits/89171258d1edd70f5c72c242c8e2262a97396e7e')
-      .reply(200, require('./fixtures/success6.json'),
+      .reply(200, require('./fixtures/update/success6.json'),
       {
         server: 'GitHub.com',
         date: 'Sun, 03 Jul 2016 14:21:06 GMT',
@@ -180,8 +180,8 @@ describe('update', function()
         'content-encoding': 'gzip',
         'x-github-request-id': '5AADFFBA:3989:86D36B1:57791F51'
       })
-      .post('/repos/piranna/buho/git/trees', require('./fixtures/request7.json'))
-      .replyWithFile(201, __dirname+'/fixtures/success7.json',
+      .post('/repos/piranna/buho/git/trees', require('./fixtures/update/request7.json'))
+      .replyWithFile(201, __dirname+'/fixtures/update/success7.json',
       {
         server: 'GitHub.com',
         date: 'Sun, 03 Jul 2016 14:21:06 GMT',
@@ -207,8 +207,8 @@ describe('update', function()
         'x-served-by': '3e3b9690823fb031da84658eb58aa83b',
         'x-github-request-id': '5AADFFBA:3989:86D36F6:57791F52'
       })
-      .post('/repos/piranna/buho/git/commits', require('./fixtures/request8.json'))
-      .replyWithFile(201, __dirname+'/fixtures/success8.json',
+      .post('/repos/piranna/buho/git/commits', require('./fixtures/update/request8.json'))
+      .replyWithFile(201, __dirname+'/fixtures/update/success8.json',
       {
         server: 'GitHub.com',
         date: 'Sun, 03 Jul 2016 14:21:07 GMT',
@@ -234,8 +234,8 @@ describe('update', function()
         'x-served-by': 'a241e1a8264a6ace03db946c85b92db3',
         'x-github-request-id': '5AADFFBA:3981:47A8D8C:57791F52'
       })
-      .patch('/repos/piranna/buho/git/refs/heads/Update_to_'+version, require('./fixtures/request9.json'))
-      .reply(200, require('./fixtures/success9.json'),
+      .patch('/repos/piranna/buho/git/refs/heads/Update_to_'+version, require('./fixtures/update/request9.json'))
+      .reply(200, require('./fixtures/update/success9.json'),
       {
         server: 'GitHub.com',
         date: 'Sun, 03 Jul 2016 14:21:07 GMT',
@@ -261,8 +261,8 @@ describe('update', function()
         'content-encoding': 'gzip',
         'x-github-request-id': '5AADFFBA:3989:86D379C:57791F53'
       })
-      .post('/repos/piranna/buho/pulls', require('./fixtures/request10.json'))
-      .replyWithFile(201, __dirname+'/fixtures/success10.json',
+      .post('/repos/piranna/buho/pulls', require('./fixtures/update/request10.json'))
+      .replyWithFile(201, __dirname+'/fixtures/update/success10.json',
       {
         server: 'GitHub.com',
         date: 'Sun, 03 Jul 2016 14:21:08 GMT',
