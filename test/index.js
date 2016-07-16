@@ -291,5 +291,65 @@ describe('update', function()
 
     buho.update(version, done)
   })
+})
+
+describe('merge', function()
+{
+  it('merge a branch with master', function(done)
+  {
+    const version = '6.3.0'
+
+    github.post('/repos/piranna/buho/merges', require('./fixtures/merge/request1.json'))
+    .replyWithFile(201, __dirname+'/fixtures/merge/response1.json',
+    {
+      server: 'GitHub.com',
+      date: 'Sat, 16 Jul 2016 15:02:15 GMT',
+      'content-type': 'application/json; charset=utf-8',
+      'content-length': '3141',
+      connection: 'close',
+      status: '201 Created',
+      'x-ratelimit-limit': '5000',
+      'x-ratelimit-remaining': '4981',
+      'x-ratelimit-reset': '1468684685',
+      'cache-control': 'private, max-age=60, s-maxage=60',
+      vary: 'Accept, Authorization, Cookie, X-GitHub-OTP, Accept-Encoding',
+      etag: '"c70527b2c6f7ec44b0cdb4f8ed926f32"',
+      location: 'https://api.github.com/repos/piranna/buho/commits/2370f84b82531ec94863c2c81b79659f066190fa',
+      'x-github-media-type': 'github.v3; format=json',
+      'access-control-expose-headers': 'ETag, Link, X-GitHub-OTP, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset, X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval',
+      'access-control-allow-origin': '*',
+      'content-security-policy': 'default-src \'none\'',
+      'strict-transport-security': 'max-age=31536000; includeSubdomains; preload',
+      'x-content-type-options': 'nosniff',
+      'x-frame-options': 'deny',
+      'x-xss-protection': '1; mode=block',
+      'x-served-by': 'bd82876e9bf04990f289ba22f246ee9b',
+      'x-github-request-id': '5AADFFBA:22B0:197A0D1:578A4C77'
+    })
+    .delete('/repos/piranna/buho/git/refs/heads/Update_to_'+version)
+    .reply(204, '',
+    {
+      server: 'GitHub.com',
+      date: 'Sat, 16 Jul 2016 15:02:21 GMT',
+      connection: 'close',
+      status: '204 No Content',
+      'x-ratelimit-limit': '5000',
+      'x-ratelimit-remaining': '4978',
+      'x-ratelimit-reset': '1468684685',
+      'x-github-media-type': 'github.v3; format=json',
+      'access-control-expose-headers': 'ETag, Link, X-GitHub-OTP, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset, X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval',
+      'access-control-allow-origin': '*',
+      'content-security-policy': 'default-src \'none\'',
+      'strict-transport-security': 'max-age=31536000; includeSubdomains; preload',
+      'x-content-type-options': 'nosniff',
+      'x-frame-options': 'deny',
+      'x-xss-protection': '1; mode=block',
+      vary: 'Accept-Encoding',
+      'x-served-by': 'a7f8a126c9ed3f1c4715a34c0ddc7290',
+      'x-github-request-id': '5AADFFBA:22B0:197A3F0:578A4C7C'
+    })
+
+    buho.merge('Update_to_'+version, done)
+  })
 
 })

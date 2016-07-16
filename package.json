@@ -4,6 +4,7 @@
   "description": "The one that wakes up in the night and go for a walk",
   "bin": {
     "buho-checkUpdate": "bin/checkUpdate",
+    "buho-merge": "bin/merge",
   },
   "scripts": {
     "test": "mocha"
@@ -26,7 +27,7 @@
   "homepage": "https://github.com/piranna/buho#readme",
   "dependencies": {
     "concat-stream": "^1.5.1",
-    "github-basic": "^6.0.0",
+    "github-basic": "piranna/github-basic",
     "github-from-package": "0.0.0",
     "github-url-to-object": "^2.2.3",
     "minimist": "^1.2.0"

@@ -1,0 +1,45 @@
+#!/usr/bin/env node
+
+/**
+ * Check if an update pull-request was successfull, and if so merge it with the
+ * `master` branch
+ */
+require('nock').recorder.rec()
+const resolve = require('path').resolve
+
+const minimist = require('minimist')
+
+const Buho = require('..')
+
+
+// Exit with error ONLY if it's defined and it's set to `failed`
+if(process.env['SEMAPHORE_THREAD_RESULT'] === 'failed')
+  throw 'Build process failed, not merging'
+
+const args = minimist(process.argv.slice(2),
+{
+  string: ['branch', 'token', 'username', 'password']
+})
+
+var auth = args.token || process.env['GITHUB_TOKEN']
+
+const username = args.username
+const password = args.password
+
+if(username && password)
+  auth =
+  {
+    username: username,
+    password: password
+  }
+
+if(!auth) throw "Required token or username and password arguments"
+
+const branch = args.branch || process.env['BRANCH_NAME']
+if(!branch) throw "Branch is not defined"
+
+
+Buho(require(resolve('package.json')), auth).merge(branch, function(error)
+{
+  if(error) console.error(error)
+})

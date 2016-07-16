@@ -81,7 +81,18 @@ function Buho(PKG, auth)
     .then(callback.bind(null, null), callback)
   }
 
+  /**
+   * Merge the pull-request with the `master` branch and delete it
+   */
+  this.merge = function(branch, callback)
   {
+    client.merge(user, repo, branch)
+    .then(function()
+    {
+      return client.deleteBranch(user, repo, branch)
+    })
+    .then(callback.bind(null, null), callback)
+  }
 }
 
 
