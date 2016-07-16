@@ -6,6 +6,9 @@ const githubFromPackage = require('github-from-package')
 const githubUrlToObject = require('github-url-to-object')
 
 
+const messagePrefix = 'Update to '
+
+
 function Buho(PKG, auth)
 {
   if(!(this instanceof Buho)) return new Buho(PKG, auth)
@@ -52,7 +55,7 @@ function Buho(PKG, auth)
   {
     PKG.version = version
 
-    const message = 'Update to '+version
+    const message = messagePrefix+version
     const branch  = message.split(' ').join('_')
 
     client.branch(user, repo, 'master', branch)
@@ -94,6 +97,8 @@ function Buho(PKG, auth)
     .then(callback.bind(null, null), callback)
   }
 }
+
+Buho.messagePrefix = messagePrefix
 
 
 module.exports = Buho

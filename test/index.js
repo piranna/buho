@@ -28,7 +28,7 @@ describe('check', function()
 {
   it('version update', function(done)
   {
-    nodejs.get('/dist/index.json').reply(200, require('./fixtures/check/success1.json'))
+    nodejs.get('/dist/index.json').replyWithFile(200, __dirname+'/fixtures/check/success1.json')
 
     buho.check(done)
   })

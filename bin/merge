@@ -4,7 +4,7 @@
  * Check if an update pull-request was successfull, and if so merge it with the
  * `master` branch
  */
-require('nock').recorder.rec()
+
 const resolve = require('path').resolve
 
 const minimist = require('minimist')
@@ -39,7 +39,8 @@ const branch = args.branch || process.env['BRANCH_NAME']
 if(!branch) throw "Branch is not defined"
 
 
-Buho(require(resolve('package.json')), auth).merge(branch, function(error)
-{
-  if(error) console.error(error)
-})
+if(branch.startsWith(Buho.messagePrefix.split(' ').join('_')))
+  Buho(require(resolve('package.json')), auth).merge(branch, function(error)
+  {
+    if(error) throw error
+  })
