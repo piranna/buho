@@ -351,5 +351,4 @@ describe('merge', function()
 
     buho.merge('Update_to_'+version, done)
   })
-
 })

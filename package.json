@@ -4,7 +4,7 @@
   "description": "The one that wakes up in the night and go for a walk",
   "bin": {
     "buho-checkUpdate": "bin/checkUpdate",
-    "buho-merge": "bin/merge",
+    "buho-merge": "bin/merge"
   },
   "scripts": {
     "test": "mocha"
