@@ -7,6 +7,7 @@
     "buho-merge": "bin/merge"
   },
   "scripts": {
+    "coveralls": "easy-coveralls",
     "test": "mocha"
   },
   "repository": {
@@ -33,6 +34,7 @@
     "minimist": "^1.2.0"
   },
   "devDependencies": {
+    "easy-coveralls": "0.0.0",
     "mocha": "^2.5.3",
     "nock": "^8.0.0"
   }
