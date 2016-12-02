@@ -1,12 +1,29 @@
-const get = require('http').get
-
-const concat            = require('concat-stream')
+const findVersions      = require('find-versions')
 const githubBasic       = require('github-basic')
 const githubFromPackage = require('github-from-package')
 const githubUrlToObject = require('github-url-to-object')
-
+const got               = require('got')
+const maxSatisfying     = require('semver').maxSatisfying
+const striptags         = require('striptags')
 
 const messagePrefix = 'Update to '
+
+
+function getVersionDirectoryIndex(data)
+{
+  // Search all the semver strings on the text and get the highest
+  // non-prerelease one
+  return maxSatisfying(findVersions(striptags(data.toString())), '')
+}
+
+/**
+ * Get latest version of Node.js
+ */
+function getVersionNode(data)
+{
+  return JSON.parse(data)[0].version.slice(1)
+}
+
 
 
 function Buho(PKG, auth)
@@ -28,24 +45,34 @@ function Buho(PKG, auth)
 
 
   /**
-   * Check latest version of Node.js
+   * Check latest version
    */
-  this.check = function(callback)
+  this.check = function(type, url, callback)
   {
     callback = callback.bind(this)
 
-    get('http://nodejs.org/dist/index.json', function(res)
+    switch(type)
     {
-      res.pipe(concat(function(data)
-      {
-        const latest = JSON.parse(data)[0].version.slice(1)
+      case 'nodejs':
+        var getLatestVersion = getVersionNode
+      break
 
-        if(PKG.version >= latest) return callback()
+      case 'DirectoryIndex':
+        var getLatestVersion = getVersionDirectoryIndex
+      break
 
-        callback(null, latest)
-      }))
-    })
-    .on('error', callback)
+      default:
+        throw 'Unnkown type "'+type+'"'
+    }
+
+    got(url).then(function(res)
+    {
+      const latest = getLatestVersion(res.body)
+
+      if(PKG.version >= latest) return callback()
+
+      callback(null, latest)
+    }, callback)
   }
 
   /**
@@ -58,7 +85,7 @@ function Buho(PKG, auth)
     const message = messagePrefix+version
     const branch  = message.split(' ').join('_')
 
-    client.branch(user, repo, 'master', branch)
+    return client.branch(user, repo, 'master', branch)
     .then(function()
     {
       const commit =
@@ -78,8 +105,7 @@ function Buho(PKG, auth)
     })
     .then(function()
     {
-      return client.pull({user: user, repo: repo, branch: branch},
-        {user: user, repo: repo}, {title: message})
+      return client.pull({user, repo, branch}, {user, repo}, {title: message})
     })
     .then(callback.bind(null, null), callback)
   }
@@ -89,7 +115,7 @@ function Buho(PKG, auth)
    */
   this.merge = function(branch, callback)
   {
-    client.merge(user, repo, branch)
+    return client.merge(user, repo, branch)
     .then(function()
     {
       return client.deleteBranch(user, repo, branch)

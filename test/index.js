@@ -1,12 +1,16 @@
 'use strict'
 
+const assert = require('assert')
+
 const nock = require('nock')
 
 const Buho = require('..')
 
 
-const nodejs = nock('http://nodejs.org:80')
-const github = nock('https://api.github.com:443')
+const github     = nock('https://github.com:443')
+const github_api = nock('https://api.github.com:443')
+const nodejs     = nock('http://nodejs.org:80')
+const qemu       = nock('http://wiki.qemu-project.org:80')
 
 
 const PKG =
@@ -26,11 +30,53 @@ const buho = Buho(PKG, auth)
 
 describe('check', function()
 {
-  it('version update', function(done)
+  it('Node.js', function(done)
   {
-    nodejs.get('/dist/index.json').replyWithFile(200, __dirname+'/fixtures/check/success1.json')
+    nodejs.get('/dist/index.json')
+          .replyWithFile(200, __dirname+'/fixtures/check/success1.json')
 
-    buho.check(done)
+    buho.check('nodejs', 'http://nodejs.org/dist/index.json',
+    function(error, version)
+    {
+      assert.ifError(error)
+
+      assert.strictEqual(version, '6.2.2')
+
+      done()
+    })
+  })
+
+  it('Directory index - QEmu', function(done)
+  {
+    qemu.get('/download/')
+        .replyWithFile(200, __dirname+'/fixtures/check/success2.html')
+
+    buho.check('DirectoryIndex', 'http://wiki.qemu-project.org/download/',
+    function(error, version)
+    {
+      assert.ifError(error)
+
+      assert.strictEqual(version, '2.7.0')
+
+      done()
+    })
+  })
+
+  it('Directory index - libfuse (Github)', function(done)
+  {
+    github.get('/libfuse/libfuse/releases')
+          .replyWithFile(200, __dirname+'/fixtures/check/success3.html')
+
+    buho.check('DirectoryIndex', 'https://github.com/libfuse/libfuse/releases',
+    function(error, version)
+    {
+      assert.ifError(error)
+
+      assert.strictEqual(version, '3.0.0')
+      // assert.strictEqual(version, '2.9.7')
+
+      done()
+    })
   })
 })
 
@@ -40,7 +86,7 @@ describe('update', function()
   {
     const version = '6.2.2'
 
-    github.get('/repos/piranna/buho/git/refs/heads/master')
+    github_api.get('/repos/piranna/buho/git/refs/heads/master')
       .reply(200, require('./fixtures/update/success2.json'),
       {
         server: 'GitHub.com',
@@ -299,7 +345,8 @@ describe('merge', function()
   {
     const version = '6.3.0'
 
-    github.post('/repos/piranna/buho/merges', require('./fixtures/merge/request1.json'))
+    github_api.post('/repos/piranna/buho/merges',
+                    require('./fixtures/merge/request1.json'))
     .replyWithFile(201, __dirname+'/fixtures/merge/response1.json',
     {
       server: 'GitHub.com',

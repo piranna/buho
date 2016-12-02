@@ -31,7 +31,8 @@ if(username && password)
 if(!auth) throw "Required token or username and password arguments"
 
 
-Buho(require(resolve('package.json')), auth).check(function(error, version)
+Buho(require(resolve('package.json')), auth).check(args.type, args.url,
+  function(error, version)
 {
   if(error) throw error
 
