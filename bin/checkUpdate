@@ -31,8 +31,12 @@ if(username && password)
 if(!auth) throw "Required token or username and password arguments"
 
 
-Buho(require(resolve('package.json')), auth).check(args.type, args.url,
-  function(error, version)
+const PKG = require(resolve('package.json'))
+
+const type = args.type || PKG.buho.type
+const url  = args.url  || PKG.buho.url
+
+Buho(PKG, auth).check(type, url, function(error, version)
 {
   if(error) throw error
 
