@@ -16,6 +16,13 @@ function getVersionDirectoryIndex(data)
   return maxSatisfying(findVersions(striptags(data.toString())), '')
 }
 
+function getVersionGithub(data)
+{
+  // Search all the semver strings on the text and get the highest
+  // non-prerelease one
+  return maxSatisfying(findVersions(striptags(data.toString())), '')
+}
+
 /**
  * Get latest version of Node.js
  */
@@ -53,12 +60,16 @@ function Buho(PKG, auth)
 
     switch(type)
     {
-      case 'nodejs':
-        var getLatestVersion = getVersionNode
-      break
-
       case 'DirectoryIndex':
         var getLatestVersion = getVersionDirectoryIndex
+      break
+
+      case 'Github':
+        var getLatestVersion = getVersionGithub
+      break
+
+      case 'nodejs':
+        var getLatestVersion = getVersionNode
       break
 
       default:

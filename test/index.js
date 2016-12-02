@@ -62,7 +62,7 @@ describe('check', function()
     })
   })
 
-  it('Directory index - libfuse (Github)', function(done)
+  it('Directory index - libfuse (Github releases page)', function(done)
   {
     github.get('/libfuse/libfuse/releases')
           .replyWithFile(200, __dirname+'/fixtures/check/success3.html')
@@ -74,6 +74,22 @@ describe('check', function()
 
       assert.strictEqual(version, '3.0.0')
       // assert.strictEqual(version, '2.9.7')
+
+      done()
+    })
+  })
+
+  it('Directory index - libfuse (Github API)', function(done)
+  {
+    github_api.get('/repos/libfuse/libfuse/releases/latest')
+          .replyWithFile(200, __dirname+'/fixtures/check/success4.json')
+
+    buho.check('Github', 'https://api.github.com/repos/libfuse/libfuse/releases/latest',
+    function(error, version)
+    {
+      assert.ifError(error)
+
+      assert.strictEqual(version, '2.9.7')
 
       done()
     })
