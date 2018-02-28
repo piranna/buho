@@ -30,7 +30,7 @@
     "find-versions": "^2.0.0",
     "github-basic": "piranna/github-basic",
     "github-from-package": "0.0.0",
-    "github-url-to-object": "^2.2.6",
+    "github-url-to-object": "^4.0.4",
     "got": "^6.6.3",
     "minimist": "^1.2.0",
     "semver": "^5.3.0",
