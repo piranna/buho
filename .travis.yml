@@ -1,8 +1,5 @@
 language: node_js
 node_js:
-  - "7"
-  - "6"
-  - "6.1"
-  - "5.11"
+  - "node"
 after_script:
 - npm run coveralls
