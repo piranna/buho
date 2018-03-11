@@ -1,9 +1,9 @@
 [![Build Status](https://travis-ci.org/piranna/buho.svg?branch=master)](https://travis-ci.org/piranna/buho)
 [![Coverage Status](https://coveralls.io/repos/github/piranna/buho/badge.svg?branch=master)](https://coveralls.io/github/piranna/buho?branch=master)
+[![Greenkeeper badge](https://badges.greenkeeper.io/piranna/buho.svg)](https://greenkeeper.io/)
 
 # buho
 
-[![Greenkeeper badge](https://badges.greenkeeper.io/piranna/buho.svg)](https://greenkeeper.io/)
 The one that wakes up in the night and go for a walk
 
 This project checks for the existence of newer versions of a project and create
