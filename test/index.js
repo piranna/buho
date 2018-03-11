@@ -30,75 +30,59 @@ const buho = Buho(PKG, auth)
 
 describe('check', function()
 {
-  it('Node.js', function(done)
+  it('Node.js', function()
   {
     nodejs.get('/dist/index.json')
           .replyWithFile(200, __dirname+'/fixtures/check/success1.json')
 
-    buho.check('nodejs', 'http://nodejs.org/dist/index.json',
-    function(error, version)
+    return buho.check('nodejs', 'http://nodejs.org/dist/index.json')
+    .then(function(version)
     {
-      assert.ifError(error)
-
       assert.strictEqual(version, '6.2.2')
-
-      done()
     })
   })
 
-  it('Directory index - QEmu', function(done)
+  it('Directory index - QEmu', function()
   {
     qemu.get('/download/')
         .replyWithFile(200, __dirname+'/fixtures/check/success2.html')
 
-    buho.check('DirectoryIndex', 'http://wiki.qemu-project.org/download/',
-    function(error, version)
+    return buho.check('DirectoryIndex', 'http://wiki.qemu-project.org/download/')
+    .then(function(version)
     {
-      assert.ifError(error)
-
       assert.strictEqual(version, '2.7.0')
-
-      done()
     })
   })
 
-  it('Directory index - libfuse (Github releases page)', function(done)
+  it('Directory index - libfuse (Github releases page)', function()
   {
     github.get('/libfuse/libfuse/releases')
           .replyWithFile(200, __dirname+'/fixtures/check/success3.html')
 
-    buho.check('DirectoryIndex', 'https://github.com/libfuse/libfuse/releases',
-    function(error, version)
+    return buho.check('DirectoryIndex', 'https://github.com/libfuse/libfuse/releases')
+    .then(function(version)
     {
-      assert.ifError(error)
-
       assert.strictEqual(version, '3.0.0')
       // assert.strictEqual(version, '2.9.7')
-
-      done()
     })
   })
 
-  it('Directory index - libfuse (Github API)', function(done)
+  it('Directory index - libfuse (Github API)', function()
   {
     github_api.get('/repos/libfuse/libfuse/releases/latest')
           .replyWithFile(200, __dirname+'/fixtures/check/success4.json')
 
-    buho.check('Github', 'https://api.github.com/repos/libfuse/libfuse/releases/latest',
-    function(error, version)
+    return buho.check('Github', 'https://api.github.com/repos/libfuse/libfuse/releases/latest')
+    .then(function(version)
     {
-      assert.ifError(error)
-
       assert.strictEqual(version, '2.9.7')
-
-      done()
     })
   })
 })
 
 describe('update', function()
 {
-  it('do a pull-request with a version update', function(done)
+  it('do a pull-request with a version update', function()
   {
     const version = '6.2.2'
 
@@ -351,13 +335,13 @@ describe('update', function()
         'x-github-request-id': '5AADFFBA:3989:86D3819:57791F53'
       })
 
-    buho.update(version, done)
+    return buho.update(version)
   })
 })
 
 describe('merge', function()
 {
-  it('merge a branch with master', function(done)
+  it('merge a branch with master', function()
   {
     const version = '6.3.0'
 
@@ -412,6 +396,6 @@ describe('merge', function()
       'x-github-request-id': '5AADFFBA:22B0:197A3F0:578A4C7C'
     })
 
-    buho.merge('Update_to_'+version, done)
+    return buho.merge('Update_to_'+version)
   })
 })

@@ -41,7 +41,4 @@ if(!branch) throw "Branch is not defined"
 
 if(branch.startsWith('greenkeeper/')
 || branch.startsWith(Buho.messagePrefix.split(' ').join('_')))
-  Buho(require(resolve('package.json')), auth).merge(branch, function(error)
-  {
-    if(error) throw error
-  })
+  Buho(require(resolve('package.json')), auth).merge(branch)

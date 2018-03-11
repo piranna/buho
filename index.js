@@ -54,10 +54,8 @@ function Buho(PKG, auth)
   /**
    * Check latest version
    */
-  this.check = function(type, url, callback)
+  this.check = function(type, url)
   {
-    callback = callback.bind(this)
-
     switch(type)
     {
       case 'DirectoryIndex':
@@ -76,20 +74,18 @@ function Buho(PKG, auth)
         throw 'Unnkown type "'+type+'"'
     }
 
-    got(url).then(function(res)
+    return got(url).then(function(res)
     {
       const latest = getLatestVersion(res.body)
 
-      if(PKG.version >= latest) return callback()
-
-      callback(null, latest)
-    }, callback)
+      if(PKG.version < latest) return latest
+    })
   }
 
   /**
    * Update version of `package.json` and create a pull-request
    */
-  this.update = function(version, callback)
+  this.update = function(version)
   {
     PKG.version = version
 
@@ -118,20 +114,18 @@ function Buho(PKG, auth)
     {
       return client.pull({user, repo, branch}, {user, repo}, {title: message})
     })
-    .then(callback.bind(null, null), callback)
   }
 
   /**
    * Merge the pull-request with the `master` branch and delete it
    */
-  this.merge = function(branch, callback)
+  this.merge = function(branch)
   {
     return client.merge(user, repo, branch)
     .then(function()
     {
       return client.deleteBranch(user, repo, branch)
     })
-    .then(callback.bind(null, null), callback)
   }
 }
 
