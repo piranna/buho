@@ -1,0 +1,20 @@
+{
+  "server": "GitHub.com",
+  "date": "Sat, 16 Jul 2016 15:02:21 GMT",
+  "connection": "close",
+  "status": "204 No Content",
+  "x-ratelimit-limit": "5000",
+  "x-ratelimit-remaining": "4978",
+  "x-ratelimit-reset": "1468684685",
+  "x-github-media-type": "github.v3; format=json",
+  "access-control-expose-headers": "ETag, Link, X-GitHub-OTP, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset, X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval",
+  "access-control-allow-origin": "*",
+  "content-security-policy": "default-src 'none'",
+  "strict-transport-security": "max-age=31536000; includeSubdomains; preload",
+  "x-content-type-options": "nosniff",
+  "x-frame-options": "deny",
+  "x-xss-protection": "1; mode=block",
+  "vary": "Accept-Encoding",
+  "x-served-by": "a7f8a126c9ed3f1c4715a34c0ddc7290",
+  "x-github-request-id": "5AADFFBA:22B0:197A3F0:578A4C7C"
+}
