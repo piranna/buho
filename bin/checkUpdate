@@ -36,12 +36,10 @@ const PKG = require(resolve('package.json'))
 const type = args.type || PKG.buho.type
 const url  = args.url  || PKG.buho.url
 
-Buho(PKG, auth).check(type, url, function(error, version)
-{
-  if(error) throw error
+const buho = Buho(PKG, auth)
 
-  if(version) this.update(version, function(error)
-  {
-    if(error) throw error
-  })
+buho.check(type, url)
+.then(function(version)
+{
+  if(version) return buho.update(version)
 })
