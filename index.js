@@ -1,10 +1,10 @@
-const findVersions      = require('find-versions')
-const githubBasic       = require('github-basic')
-const githubFromPackage = require('github-from-package')
-const githubUrlToObject = require('github-url-to-object')
-const got               = require('got')
-const maxSatisfying     = require('semver').maxSatisfying
-const striptags         = require('striptags')
+const findVersions        = require('find-versions')
+const githubBasic         = require('github-basic')
+const githubFromPackage   = require('github-from-package')
+const githubUrlToObject   = require('github-url-to-object')
+const got                 = require('got')
+const {lt, maxSatisfying} = require('semver')
+const striptags           = require('striptags')
 
 const messagePrefix = 'Update to '
 
@@ -78,7 +78,7 @@ function Buho(PKG, auth)
     {
       const latest = getLatestVersion(res.body)
 
-      if(PKG.version < latest) return latest
+      if(lt(PKG.version, latest)) return latest
     })
   }
 
