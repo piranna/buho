@@ -1,0 +1,25 @@
+#!/usr/bin/env sh
+
+# Nightly scheduler
+
+if [ "$SEMAPHORE_TRIGGER_SOURCE" = "scheduler" ]
+then
+  buho-checkUpdate
+  exit
+fi
+
+
+# Exec tests
+
+npm test || exit $?
+
+
+# Test succesful, merge branch in master if it's a CI one, or publish in 'npm'
+# if it's master branch
+
+if [ "$BRANCH_NAME" = "master" ]
+then
+  ci-publish
+else
+  buho-merge
+fi
