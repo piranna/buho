@@ -38,6 +38,28 @@ function Buho(PKG, auth)
   if(!(this instanceof Buho)) return new Buho(PKG, auth)
 
 
+  async function updateSha256(version)
+  {
+    return await got(`${PKG.buho.url}/sha256sums.asc`)
+    .then(function({body})
+    {
+      return body.toString().split('\n')
+      .map(function(element)
+      {
+        return element.split(/\s+/)
+      })
+      .find(function([, filename])
+      {
+        return filename === `linux-${version}.tar.gz`
+      })
+    })
+    .then(function([sha256])
+    {
+      return sha256
+    })
+  }
+
+
   const userRepo = githubUrlToObject(githubFromPackage(PKG))
   const user = userRepo.user
   const repo = userRepo.repo
@@ -88,6 +110,9 @@ function Buho(PKG, auth)
   this.update = function(version)
   {
     PKG.version = version
+
+    const {buho: {sha256} = {}} = PKG
+    if(sha256) PKG.buho.sha256 = updateSha256(version)
 
     const message = messagePrefix+version
     const branch  = message.split(' ').join('_')
