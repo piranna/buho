@@ -38,9 +38,9 @@ function Buho(PKG, auth)
   if(!(this instanceof Buho)) return new Buho(PKG, auth)
 
 
-  async function updateSha256(version)
+  function updateSha256(version)
   {
-    return await got(`${PKG.buho.url}/sha256sums.asc`)
+    return got(`${PKG.buho.url}/sha256sums.asc`)
     .then(function({body})
     {
       return body.toString().split('\n')
@@ -107,12 +107,12 @@ function Buho(PKG, auth)
   /**
    * Update version of `package.json` and create a pull-request
    */
-  this.update = function(version)
+  this.update = async function(version)
   {
     PKG.version = version
 
     const {buho: {sha256} = {}} = PKG
-    if(sha256) PKG.buho.sha256 = updateSha256(version)
+    if(sha256) PKG.buho.sha256 = await updateSha256(version)
 
     const message = messagePrefix+version
     const branch  = message.split(' ').join('_')
