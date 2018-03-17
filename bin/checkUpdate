@@ -28,7 +28,7 @@ if(username && password)
     password: password
   }
 
-if(!auth) throw "Required token or username and password arguments"
+if(!auth) throw "Required Github token or username and password arguments"
 
 
 const PKG = require(resolve('package.json'))
