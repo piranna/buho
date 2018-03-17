@@ -96,9 +96,9 @@ function Buho(PKG, auth)
         throw 'Unnkown type "'+type+'"'
     }
 
-    return got(url).then(function(res)
+    return got(url).then(function({body})
     {
-      const latest = getLatestVersion(res.body)
+      const latest = getLatestVersion(body)
 
       if(lt(PKG.version, latest)) return latest
     })
