@@ -1,6 +1,6 @@
 {
   "name": "buho",
-  "version": "0.3.3",
+  "version": "0.3.4",
   "description": "The one that wakes up in the night and go for a walk",
   "bin": {
     "buho-checkUpdate": "bin/checkUpdate",
