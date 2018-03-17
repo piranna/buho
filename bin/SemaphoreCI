@@ -5,7 +5,7 @@
 if [ "$SEMAPHORE_TRIGGER_SOURCE" = "scheduler" ]
 then
   buho-checkUpdate
-  exit
+  exit $?
 fi
 
 
