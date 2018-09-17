@@ -32,7 +32,7 @@
     "github-basic": "piranna/github-basic",
     "github-from-package": "^0.0.0",
     "github-url-to-object": "^4.0.4",
-    "got": "^8.3.0",
+    "got": "^9.2.2",
     "minimist": "^1.2.0",
     "semver": "^5.5.0",
     "striptags": "^3.1.1"
