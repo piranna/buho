@@ -28,7 +28,7 @@
   },
   "homepage": "https://github.com/piranna/buho#readme",
   "dependencies": {
-    "find-versions": "^2.0.0",
+    "find-versions": "^3.0.0",
     "github-basic": "piranna/github-basic",
     "github-from-package": "^0.0.0",
     "github-url-to-object": "^4.0.4",
