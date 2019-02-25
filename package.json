@@ -39,7 +39,7 @@
   },
   "devDependencies": {
     "easy-coveralls": "^0.0.1",
-    "mocha": "^5.0.4",
+    "mocha": "^6.0.2",
     "nock": "^9.2.3"
   }
 }
