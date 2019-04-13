@@ -1,0 +1,44 @@
+# Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
+version: v1.13.3
+ignore: {}
+# patches apply the minimum changes required to fix a vulnerability
+patch:
+  'npm:debug:20170905':
+    - ci-publish > available-versions > debug:
+        patched: '2019-04-13T04:30:41.505Z'
+    - ci-publish > available-versions > simple-bin-help > debug:
+        patched: '2019-04-13T04:30:41.505Z'
+    - ci-publish > available-versions > npm-utils > chdir-promise > debug:
+        patched: '2019-04-13T04:30:41.505Z'
+    - ci-publish > available-versions > npm-utils > ggit > debug:
+        patched: '2019-04-13T04:30:41.505Z'
+    - ci-publish > available-versions > npm-utils > ggit > chdir-promise > debug:
+        patched: '2019-04-13T04:30:41.505Z'
+    - ci-publish > changed-log > debug:
+        patched: '2019-04-13T04:30:41.505Z'
+    - ci-publish > npm-utils > debug:
+        patched: '2019-04-13T04:30:41.505Z'
+    - ci-publish > available-versions > npm-utils > debug:
+        patched: '2019-04-13T04:30:41.505Z'
+  'npm:hoek:20180212':
+    - ci-publish > available-versions > request > hawk > hoek:
+        patched: '2019-04-13T04:30:41.505Z'
+    - ci-publish > available-versions > request > hawk > boom > hoek:
+        patched: '2019-04-13T04:30:41.505Z'
+    - ci-publish > available-versions > request > hawk > sntp > hoek:
+        patched: '2019-04-13T04:30:41.505Z'
+    - ci-publish > available-versions > request > hawk > cryptiles > boom > hoek:
+        patched: '2019-04-13T04:30:41.505Z'
+  'npm:lodash:20180130':
+    - ci-publish > changed-log > lodash:
+        patched: '2019-04-13T04:30:41.505Z'
+    - ci-publish > available-versions > npm-utils > ggit > lodash:
+        patched: '2019-04-13T04:30:41.505Z'
+  'npm:moment:20170905':
+    - ci-publish > available-versions > npm-utils > ggit > moment:
+        patched: '2019-04-13T04:30:41.505Z'
+  'npm:ms:20170412':
+    - ci-publish > changed-log > debug > ms:
+        patched: '2019-04-13T04:30:41.505Z'
+    - ci-publish > npm-utils > debug > ms:
+        patched: '2019-04-13T04:30:41.505Z'
