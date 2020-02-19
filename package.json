@@ -41,6 +41,6 @@
   "devDependencies": {
     "easy-coveralls": "^0.0.1",
     "mocha": "^5.0.4",
-    "nock": "^9.2.3"
+    "nock": "^12.0.1"
   }
 }
