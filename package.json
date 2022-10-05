@@ -9,7 +9,9 @@
   },
   "scripts": {
     "coveralls": "easy-coveralls",
-    "test": "mocha"
+    "test": "mocha",
+    "prepublish": "npm run snyk-protect",
+    "snyk-protect": "snyk-protect"
   },
   "repository": {
     "type": "git",
@@ -29,18 +31,20 @@
   "homepage": "https://github.com/piranna/buho#readme",
   "dependencies": {
     "ci-publish": "^1.3.1",
-    "find-versions": "^2.0.0",
+    "find-versions": "^4.0.0",
     "github-basic": "piranna/github-basic",
     "github-from-package": "^0.0.0",
     "github-url-to-object": "^4.0.4",
-    "got": "^8.3.0",
+    "got": "^11.8.5",
     "minimist": "^1.2.0",
     "semver": "^5.5.0",
-    "striptags": "^3.1.1"
+    "striptags": "^3.1.1",
+    "@snyk/protect": "latest"
   },
   "devDependencies": {
     "easy-coveralls": "^0.0.1",
     "mocha": "^5.0.4",
     "nock": "^9.2.3"
-  }
+  },
+  "snyk": true
 }
