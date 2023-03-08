@@ -9,7 +9,9 @@
   },
   "scripts": {
     "coveralls": "easy-coveralls",
-    "test": "mocha"
+    "test": "mocha",
+    "prepublish": "npm run snyk-protect",
+    "snyk-protect": "snyk-protect"
   },
   "repository": {
     "type": "git",
@@ -36,11 +38,13 @@
     "got": "^8.3.0",
     "minimist": "^1.2.0",
     "semver": "^5.5.0",
-    "striptags": "^3.1.1"
+    "striptags": "^3.1.1",
+    "@snyk/protect": "latest"
   },
   "devDependencies": {
     "easy-coveralls": "^0.0.1",
     "mocha": "^5.0.4",
     "nock": "^9.2.3"
-  }
+  },
+  "snyk": true
 }
